@@ -26,9 +26,9 @@ io.on("connection", (socket) => {
 
         socket.join(roomId);
 
-        socket.to(roomId).emit("user_join_room", `${username} has joined the chat`)
+        socket.to(roomId).emit("user_join_room", `${username} has joined the chat`) //send everyone in the room except the sender
 
-        console.log(`${username} has joined the room ${roomId}`);
+        
     })
 
 

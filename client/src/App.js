@@ -26,7 +26,7 @@ function App() {
   }, []);
 
   const handleJoinRoom = (info) => {
-    socket.emit("user_join_room", info);
+    socket.emit("user_join_room", info); //info = userName , roomId
     setIsInRoom(true);
   };
 

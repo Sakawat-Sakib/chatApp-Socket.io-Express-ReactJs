@@ -43,6 +43,7 @@ const ChatWindow = ({ username, roomId, socket }) => {
         }
     }, [socket])
 
+    
 
     useEffect(() => {
 
@@ -50,13 +51,19 @@ const ChatWindow = ({ username, roomId, socket }) => {
 
         socket.on("message", ({ username, text, type }) => {
             const uuid = uuidv4();
+
+            //in other storage
             setMessages(prevMessages => [...prevMessages, {
                 id: uuid,
                 username,
                 text,
                 type
             }])
+            
         })
+
+        
+
         return () => {
             socket.off("message");
         };
@@ -81,7 +88,8 @@ const ChatWindow = ({ username, roomId, socket }) => {
         e.preventDefault();
 
         const uuid = uuidv4();
-
+        
+        //in my storage
         setMessages(prevMessages => [...prevMessages, {
             id: uuid,
             username,
@@ -120,12 +128,15 @@ const ChatWindow = ({ username, roomId, socket }) => {
         socket.emit("user_typing", { username, roomId });
     }
 
+
+
     return (
         <div className={styles.chatContainer}>
             <div className={styles.chatHeader}>
                 <h2>Room Name: {roomId}</h2>
                 <p>Welcome, <span>{username}</span></p>
             </div>
+
             <div className={styles.chatMessages}>
                 {messages.map((message) => {
 
@@ -152,6 +163,7 @@ const ChatWindow = ({ username, roomId, socket }) => {
                 }
                 <div className={styles.activityText}>{activityMsg}</div>
             </div>
+
             <form onSubmit={handleSendMessage} className={styles.messageForm}>
                 <input
                     type="text"
